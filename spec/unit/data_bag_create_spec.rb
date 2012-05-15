@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Knife::SoloDataBag::DataBagCreate do
+describe Knife::SoloDataBag::SoloDataBagCreate do
 
   before do
-    @knife  = Knife::SoloDataBag::DataBagCreate.new
+    @knife  = Knife::SoloDataBag::SoloDataBagCreate.new
     @stdout = StringIO.new
     @stderr = StringIO.new
     @knife.ui.stub!(:stdout).and_return(@stdout)

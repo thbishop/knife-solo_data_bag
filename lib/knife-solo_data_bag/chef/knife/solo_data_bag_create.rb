@@ -1,6 +1,6 @@
 module Knife::SoloDataBag
 
-  class DataBagCreate < Chef::Knife
+  class SoloDataBagCreate < Chef::Knife
 
     require 'fileutils'
 
