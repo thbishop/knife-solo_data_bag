@@ -10,13 +10,13 @@ module Knife::SoloDataBag
     attr_reader :bag_name, :item_name
 
     option :secret,
-           :short => "-s SECRET",
-           :long  => "--secret SECRET",
-           :description => "The secret key to use to encrypt data bag item values"
+           :short => '-s SECRET',
+           :long  => '--secret SECRET',
+           :description => 'The secret key to use to encrypt data bag item values'
 
     option :secret_file,
-           :long  => "--secret_file SECRET",
-           :description => "A file containing the secret key to use"
+           :long  => '--secret_file SECRET',
+           :description => 'A file containing the secret key to use to encrypt data bag item values'
 
     def run
       @bag_name, @item_name = @name_args
