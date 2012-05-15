@@ -25,6 +25,7 @@ module Knife::SoloDataBag
       create_bag_item if item_name
     end
 
+    private
     def bag_item_content(content)
       return content unless should_be_encrypted?
       Chef::EncryptedDataBagItem.encrypt_data_bag_item content, secret_key
@@ -35,12 +36,10 @@ module Knife::SoloDataBag
     end
 
     def create_bag_item
-      if item_name
-        create_object({'id' => item_name}, "data_bag_item[#{item_name}]") do |output|
-          item = Chef::DataBagItem.from_hash bag_item_content(output)
-          item.data_bag bag_name
-          persist_bag_item item
-        end
+      create_object({'id' => item_name}, "data_bag_item[#{item_name}]") do |output|
+        item = Chef::DataBagItem.from_hash bag_item_content(output)
+        item.data_bag bag_name
+        persist_bag_item item
       end
     end
 
