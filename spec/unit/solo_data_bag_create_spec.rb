@@ -1,56 +1,16 @@
 require 'spec_helper'
 
 describe KnifeSoloDataBag::SoloDataBagCreate do
-
   before do
-    @knife  = KnifeSoloDataBag::SoloDataBagCreate.new
-    @stdout = StringIO.new
-    @stderr = StringIO.new
-    @knife.ui.stub!(:stdout).and_return(@stdout)
-    @knife.ui.stub!(:stderr).and_return(@stderr)
+    @knife  = subject
   end
 
+  include_context 'stubbed_out_stdout_and_stderr'
+
   describe 'run' do
-    context 'when a bag name is not supplied' do
-      it 'should exit with an error message' do
-        lambda {
-          @knife.run
-        }.should raise_error SystemExit
-        @stdout.string.should match /usage/i
-        @stderr.string.should match /name for the data bag/
-      end
-    end
-
-    context 'when the data bag path is not a valid directory' do
-      before do
-        File.stub(:directory?).and_return(false)
-        @knife.name_args = ['foo']
-      end
-
-      it 'should raise an invalid data bag path exception' do
-        lambda {
-          @knife.run
-        }.should raise_error Chef::Exceptions::InvalidDataBagPath
-      end
-    end
-
-    context 'when specifying -s and --secret-file' do
-      before do
-        @knife.name_args = 'foo'
-        @knife.config[:secret] = 'foobar'
-        @knife.config[:secret_file] = 'secret.txt'
-        File.stub(:directory?).and_return(true)
-      end
-
-      it 'should exit with an error message' do
-        lambda {
-          @knife.run
-        }.should raise_error SystemExit
-        @stdout.string.should match /usage/i
-        @stderr.string.should match /either --secret or --secret-file/
-      end
-
-    end
+    include_context 'bag_name_not_provided'
+    include_context 'bag_path_is_not_valid'
+    include_context 'secret_string_and_secret_file_are_both_provided'
 
     context 'with valid arguments' do
       before do
