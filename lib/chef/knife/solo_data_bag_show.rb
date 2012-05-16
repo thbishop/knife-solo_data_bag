@@ -2,6 +2,8 @@ module KnifeSoloDataBag
 
   class SoloDataBagShow < Chef::Knife
 
+    require 'chef/knife/helpers'
+
     include KnifeSoloDataBag::Helpers
 
     banner 'knife solo data bag show BAG [ITEM] (options)'

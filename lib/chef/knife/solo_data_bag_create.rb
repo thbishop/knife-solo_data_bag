@@ -2,6 +2,7 @@ module KnifeSoloDataBag
 
   class SoloDataBagCreate < Chef::Knife
 
+    require 'chef/knife/helpers'
     require 'fileutils'
 
     include KnifeSoloDataBag::Helpers

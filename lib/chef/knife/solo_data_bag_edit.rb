@@ -20,6 +20,14 @@ module KnifeSoloDataBag
            :long  => '--secret-file SECRET_FILE',
            :description => 'A file containing the secret key to use to encrypt data bag item values'
 
+    def run
+      Chef::Config[:solo]   = true
+      @bag_name, @item_name = @name_args
+      ensure_valid_arguments
+      edit_content
+    end
+
+    private
     def edit_content
       updated_content = edit_data existing_bag_item_content
       item = Chef::DataBagItem.from_hash format_editted_content(updated_content)
@@ -37,13 +45,6 @@ module KnifeSoloDataBag
     def format_editted_content(content)
       return content unless should_be_encrypted?
       Chef::EncryptedDataBagItem.encrypt_data_bag_item content, secret_key
-    end
-
-    def run
-      Chef::Config[:solo]   = true
-      @bag_name, @item_name = @name_args
-      ensure_valid_arguments
-      edit_content
     end
 
     def ensure_valid_arguments
