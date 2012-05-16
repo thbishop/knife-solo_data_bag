@@ -1,7 +1,8 @@
-shared_context 'secret_string_and_secret_file_are_both_provided' do
+shared_context 'secret_string_and_secret_file_are_both_provided' do |args|
   context 'when specifying -s and --secret-file' do
     before do
-      @knife.name_args = 'foo'
+      @knife.name_args = ['foo']
+      @knife.name_args.concat Array(args)
       @knife.config[:secret] = 'foobar'
       @knife.config[:secret_file] = 'secret.txt'
       File.stub(:directory?).and_return(true)
