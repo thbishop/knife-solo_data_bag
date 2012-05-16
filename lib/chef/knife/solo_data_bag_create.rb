@@ -1,4 +1,4 @@
-module Knife::SoloDataBag
+module KnifeSoloDataBag
 
   class SoloDataBagCreate < Chef::Knife
 
