@@ -20,3 +20,6 @@ A knife plugin to make working with data bags easier in a chef solo environment
 * Make your feature addition or bug fix (with tests and docs) in a topic branch
 * Bonus points for not mucking with the gemspec or version
 * Send a pull request
+
+## License
+See LICENSE for details
