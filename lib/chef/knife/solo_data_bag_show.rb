@@ -2,6 +2,8 @@ module KnifeSoloDataBag
 
   class SoloDataBagShow < Chef::Knife
 
+    include KnifeSoloDataBag::Helpers
+
     banner 'knife solo data bag show BAG [ITEM] (options)'
     category 'solo data bag'
 
@@ -42,43 +44,9 @@ module KnifeSoloDataBag
     end
 
     def ensure_valid_arguments
-      unless bag_name
-        show_usage
-        ui.fatal 'You must supply a name for the data bag'
-        exit 1
-      end
-
-      unless File.directory? bags_path
-        raise Chef::Exceptions::InvalidDataBagPath,
-              "Configured data bag path '#{bags_path}' is invalid"
-      end
-
-      if config[:secret] && config[:secret_file]
-        show_usage
-        ui.fatal 'Please specify either --secret or --secret-file only'
-        exit 1
-      end
-    end
-
-    def bag_item_path
-      File.expand_path File.join(bag_path, "#{item_name}.json")
-    end
-
-    def bag_path
-      File.expand_path File.join(bags_path, bag_name)
-    end
-
-    def bags_path
-      Chef::Config[:data_bag_path]
-    end
-
-    def should_be_encrypted?
-      config[:secret] || config[:secret_file]
-    end
-
-    def secret_key
-      return config[:secret] if config[:secret]
-      Chef::EncryptedDataBagItem.load_secret config[:secret_file]
+      validate_bag_name_provided
+      validate_bags_path_exists
+      validate_multiple_secrets_were_not_provided
     end
 
   end
