@@ -7,13 +7,16 @@ A knife plugin to make working with data bags easier in a chef solo environment
 
 ## Usage
 
-    # create a plain text data bag
+Create a plain text data bag
+
     $ knife solo data bag create apps app_1
 
-    # create an encrypted data bag with the provided string as the secret
+Create an encrypted data bag with the provided string as the secret
+
     $ knife solo data bag create apps app_1 -s 'THIS IS THE SECRET_KEY'
 
-    # create an encrypted data bag with the provided string as the secret
+Create an encrypted data bag with the provided string as the secret
+
     $ knife solo data bag create apps app_1 --secret-file 'SECRET_FILE'
 
 ## Notes
