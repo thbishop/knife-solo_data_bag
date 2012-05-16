@@ -4,9 +4,9 @@ require File.expand_path('../lib/knife-solo_data_bag/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Tommy Bishop"]
   gem.email         = ["bishop.thomas@gmail.com"]
-  gem.description   = %q{}
+  gem.description   = %q{A knife plugin for working with data bags and chef solo}
   gem.summary       = %q{A knife plugin for working with data bags and chef solo}
-  gem.homepage      = ""
+  gem.homepage      = 'https://github.com/thbishop/knife-solo_data_bag'
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n")
