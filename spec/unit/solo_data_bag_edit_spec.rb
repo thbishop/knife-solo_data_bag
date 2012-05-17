@@ -62,7 +62,7 @@ describe KnifeSoloDataBag::SoloDataBagEdit do
         before do
           @knife.config[:secret] = 'secret_key'
           Chef::EncryptedDataBagItem.should_receive(:new).
-                                     with(@bag_item_foo, 'secret_key').
+                                     with(@bag_item_foo.raw_data, 'secret_key').
                                      and_return(@updated_data)
         end
 
@@ -82,7 +82,7 @@ describe KnifeSoloDataBag::SoloDataBagEdit do
                                      with(@secret_path).
                                      and_return('psst')
           Chef::EncryptedDataBagItem.should_receive(:new).
-                                     with(@bag_item_foo, 'psst').
+                                     with(@bag_item_foo.raw_data, 'psst').
                                      and_return(@updated_data)
         end
 
