@@ -22,7 +22,7 @@ Create an encrypted data bag with the provided file content as the secret
 
 Create a data bag item with JSON from the command line (works with encryption)
 
-    $ knife solo data bag create apps app_1 --json '{"id": "app_1", "username": "bob"}
+    $ knife solo data bag create apps app_1 --json '{"id": "app_1", "username": "bob"}'
 
 ### Edit
 Edit a plain text data bag
