@@ -22,6 +22,11 @@ module KnifeSoloDataBag
       config[:secret] || config[:secret_file]
     end
 
+    def convert_json_string
+      require 'yajl'
+      Yajl::Parser.parse(config[:json_string])
+    end
+
     def validate_bag_name_provided
       unless bag_name
         show_usage
@@ -34,6 +39,15 @@ module KnifeSoloDataBag
       unless File.directory? bags_path
         raise Chef::Exceptions::InvalidDataBagPath,
               "Configured data bag path '#{bags_path}' is invalid"
+      end
+    end
+
+    def validate_json_string
+      begin
+        require 'json'
+        JSON.parse config[:json_string], :create_additions => false
+      rescue => error
+        raise "Syntax error in #{config[:json_string]}: #{error.message}"
       end
     end
 
