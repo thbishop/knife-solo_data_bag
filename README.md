@@ -63,8 +63,20 @@ This plugin will rely on the configured data_bag_path for placement of the data
 bags.  This defaults to '/var/chef/data_bags', but can be overriden in your chef
 client config.
 
-### Chef Support
-This plugin has only been tested with version 0.10.10 of chef.
+## Version Support
+This plugin has been tested on the following:
+
+Chef:
+* 0.10.10
+* 10.12.0
+
+Ruby:
+* 1.9.2
+* 1.9.3
+
+OS:
+* OSX
+* Linux
 
 ## Contribute
 * Fork the project
