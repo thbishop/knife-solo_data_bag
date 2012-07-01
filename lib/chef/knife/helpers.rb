@@ -1,6 +1,8 @@
 module KnifeSoloDataBag
   module Helpers
 
+    require 'json'
+
     def bag_item_path
       File.expand_path File.join(bag_path, "#{item_name}.json")
     end
@@ -23,8 +25,7 @@ module KnifeSoloDataBag
     end
 
     def convert_json_string
-      require 'yajl'
-      Yajl::Parser.parse(config[:json_string])
+      JSON.parse config[:json_string]
     end
 
     def validate_bag_name_provided
@@ -44,7 +45,6 @@ module KnifeSoloDataBag
 
     def validate_json_string
       begin
-        require 'json'
         JSON.parse config[:json_string], :create_additions => false
       rescue => error
         raise "Syntax error in #{config[:json_string]}: #{error.message}"
