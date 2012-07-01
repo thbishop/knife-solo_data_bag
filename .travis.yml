@@ -2,3 +2,7 @@ language: ruby
 rvm:
   - 1.9.2
   - 1.9.3
+
+gemfile:
+  - ./gemfiles/Gemfile.chef.0.10.10
+  - ./gemfiles/Gemfile.chef.10.12.0
