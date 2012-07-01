@@ -1,6 +1,9 @@
 # Knife Solo Data Bag
 A knife plugin to make working with data bags easier in a chef solo environment
 
+## Build Status
+![Build Status](https://secure.travis-ci.org/thbishop/knife-solo_data_bag.png)
+
 ## Installation
 
     gem install knife-solo_data_bag
