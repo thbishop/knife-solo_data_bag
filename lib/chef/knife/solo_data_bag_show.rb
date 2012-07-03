@@ -34,7 +34,8 @@ module KnifeSoloDataBag
 
     def bag_item_content
       if should_be_encrypted?
-        Chef::EncryptedDataBagItem.load bag_name, item_name, secret_key
+        raw = Chef::EncryptedDataBagItem.load(bag_name, item_name, secret_key)
+        raw.to_hash
       else
         Chef::DataBagItem.load(bag_name, item_name).raw_data
       end
