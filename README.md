@@ -58,6 +58,10 @@ Show the unencrypted content of an encrypted data bag with the provided file con
 
     $ knife solo data bag show apps app_1 --secret-file 'SECRET_FILE'
 
+You can also display any of the above variations in JSON format with `-F json`
+
+    $ knife solo data bag show apps app_1 -s secret_key -F json
+
 ## Notes
 This plugin will rely on the configured data_bag_path for placement of the data
 bags.  This defaults to '/var/chef/data_bags', but can be overriden in your chef
