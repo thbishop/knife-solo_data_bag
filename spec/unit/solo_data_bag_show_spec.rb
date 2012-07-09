@@ -57,6 +57,20 @@ describe KnifeSoloDataBag::SoloDataBagShow do
           @stdout.string.should match /id:\s+foo.+who:\s+bob/m
         end
 
+        context 'and with -F of json' do
+          before do
+            @knife.config[:format] = 'json'
+            Chef::DataBagItem.should_receive(:load).with('bag_1', 'foo').
+                                                    and_return(@bag_item_foo)
+          end
+
+          it 'should show the item as json' do
+            @knife.run
+            @stdout.string.should match /"id":\s+"foo".+"who":\s+"bob"/m
+            @stdout.string.should_not match /json_class/
+          end
+        end
+
         context 'when encrypting with -s or --secret' do
           before do
             @knife.config[:secret] = 'SECRET'
@@ -68,6 +82,18 @@ describe KnifeSoloDataBag::SoloDataBagShow do
           it 'should show the unencrypted item' do
             @knife.run
             @stdout.string.should match /id:\s+foo.+who:\s+bob/m
+          end
+
+          context 'and with -F of json' do
+            before do
+              @knife.config[:format] = 'json'
+            end
+
+            it 'should show the unencrypted item as json' do
+              @knife.run
+              @stdout.string.should match /"id":\s+"foo".+"who":\s+"bob"/m
+              @stdout.string.should_not match /json_class/
+            end
           end
         end
 
@@ -85,6 +111,18 @@ describe KnifeSoloDataBag::SoloDataBagShow do
           it 'should show the unencrypted item' do
             @knife.run
             @stdout.string.should match /id:\s+foo.+who:\s+bob/m
+          end
+
+          context 'and with -F of json' do
+            before do
+              @knife.config[:format] = 'json'
+            end
+
+            it 'should show the unencrypted item as json' do
+              @knife.run
+              @stdout.string.should match /"id":\s+"foo".+"who":\s+"bob"/m
+              @stdout.string.should_not match /json_class/
+            end
           end
         end
 
