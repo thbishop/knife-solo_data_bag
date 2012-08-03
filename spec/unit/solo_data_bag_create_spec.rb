@@ -41,7 +41,7 @@ describe KnifeSoloDataBag::SoloDataBagCreate do
           @knife.name_args << 'bar'
           @input_data = {'id' => 'foo', 'key_1' => 'value_1', 'key_2' => 'value_2'}
           @item_path  = "#{@bag_path}/bar.json"
-          @knife.stub(:create_object).and_yield(@input_data)
+          @knife.stub(:create_object).and_yield(@input_data).and_return(nil)
         end
 
         it 'should create the data bag item' do
