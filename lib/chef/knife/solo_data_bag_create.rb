@@ -44,6 +44,7 @@ module KnifeSoloDataBag
     end
 
     def create_item_object
+      item = nil
       if config[:json_string].nil?
         create_object({'id' => item_name}, "data_bag_item[#{item_name}]") do |output|
           item = Chef::DataBagItem.from_hash bag_item_content(output)
@@ -51,6 +52,7 @@ module KnifeSoloDataBag
       else
         item = Chef::DataBagItem.from_hash bag_item_content(convert_json_string)
       end
+      item
     end
 
     def create_bag_item
