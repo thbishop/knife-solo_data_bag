@@ -15,13 +15,17 @@ module KnifeSoloDataBag
       Chef::Config[:data_bag_path]
     end
 
+    def secret_path
+      Chef::Config[:encrypted_data_bag_secret]
+    end
+
     def secret_key
       return config[:secret] if config[:secret]
-      Chef::EncryptedDataBagItem.load_secret config[:secret_file]
+      Chef::EncryptedDataBagItem.load_secret(config[:secret_file] || secret_path)
     end
 
     def should_be_encrypted?
-      config[:secret] || config[:secret_file]
+      config[:secret] || config[:secret_file] || secret_path
     end
 
     def convert_json_string
@@ -56,6 +60,8 @@ module KnifeSoloDataBag
         show_usage
         ui.fatal 'Please specify either --secret or --secret-file only'
         exit 1
+      elsif (config[:secret] && secret_path) || (config[:secret_file] && secret_path)
+        ui.info 'NOTE: The encrypted_data_bag_secret option defined in knife.rb was overriden by --secret-file.'
       end
     end
 
