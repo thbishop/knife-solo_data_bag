@@ -126,6 +126,36 @@ describe KnifeSoloDataBag::SoloDataBagShow do
           end
         end
 
+        context 'when encrypting with secret set in knife config' do
+          before do
+            @secret_path                             = '/var/chef/secret.txt'
+            Chef::Config[:encrypted_data_bag_secret] = @secret_path
+            Chef::EncryptedDataBagItem.should_receive(:load_secret).
+                                       with(@secret_path).
+                                       and_return('abcd')
+            Chef::EncryptedDataBagItem.should_receive(:load).
+                                       with('bag_1', 'foo', 'abcd').
+                                       and_return(@bag_item_foo)
+          end
+
+          it 'should show the unencrypted item' do
+            @knife.run
+            @stdout.string.should match /id:\s+foo.+who:\s+bob/m
+          end
+
+          context 'and with -F of json' do
+            before do
+              @knife.config[:format] = 'json'
+            end
+
+            it 'should show the unencrypted item as json' do
+              @knife.run
+              @stdout.string.should match /"id":\s+"foo".+"who":\s+"bob"/m
+              @stdout.string.should_not match /json_class/
+            end
+          end
+        end
+
       end
     end
 

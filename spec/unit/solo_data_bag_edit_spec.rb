@@ -94,6 +94,28 @@ describe KnifeSoloDataBag::SoloDataBagEdit do
         end
       end
 
+      context 'when encrypting with secret set in knife config' do
+        before do
+          @secret_path                             = '/var/chef/secret.txt'
+          Chef::Config[:encrypted_data_bag_secret] = @secret_path
+          Chef::EncryptedDataBagItem.stub(:load_secret).
+                                     with(@secret_path).
+                                     and_return('psst')
+          Chef::EncryptedDataBagItem.should_receive(:new).
+                                     with(@bag_item_foo.raw_data, 'psst').
+                                     and_return(@updated_data)
+        end
+
+        after { Chef::Config[:encrypted_data_bag_secret] = nil }
+
+        it 'should edit the encrypted data bag item' do
+          @knife.run
+          content = JSON.parse(File.read(@item_path)).raw_data
+          content['who'].should_not == @orig_data['who']
+          content['who'].should_not be_nil
+        end
+      end
+
     end
 
   end
