@@ -1,5 +1,6 @@
 ## head
 
+## 0.3.0 (11/08/2012)
 * Add support for 'encrypted_data_bag_secret' in knife config (props to Anton Orel @skyeagle)
 
 ## 0.2.2 (08/07/2012)
