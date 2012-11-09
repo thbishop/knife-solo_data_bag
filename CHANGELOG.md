@@ -1,5 +1,7 @@
 ## head
 
+* Add support for 'encrypted_data_bag_secret' in knife config (props to Anton Orel @skyeagle)
+
 ## 0.2.2 (08/07/2012)
 * Fixed an issue which prevented the create command from working in some cases (props to Florian Dütsch @der-flo)
 
