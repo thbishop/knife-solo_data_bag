@@ -79,7 +79,9 @@ This plugin has been tested on the following:
 
 Chef:
 * 0.10.10
-* 10.12.0
+* 10.12.x
+* 10.14.x
+* 10.16.x
 
 Ruby:
 * 1.9.2
