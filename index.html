@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Knife-solo data bag by thbishop</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Knife-solo data bag</h1>
+          <h2>A knife plugin to ease working with data bags and chef solo</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/thbishop/knife-solo_data_bag/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/thbishop/knife-solo_data_bag/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/thbishop/knife-solo_data_bag" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>Knife Solo Data Bag</h1>
+
+<p>A knife plugin to make working with data bags easier in a chef solo environment.</p>
+
+<p>If you are looking for a full featured chef solo management solution, you may
+want to check out <a href="https://github.com/matschaffer/knife-solo">knife solo</a>.</p>
+
+<h2>Build Status</h2>
+
+<p><img src="https://secure.travis-ci.org/thbishop/knife-solo_data_bag.png" alt="Build Status"></p>
+
+<h2>Installation</h2>
+
+<pre><code>gem install knife-solo_data_bag
+</code></pre>
+
+<h2>Usage</h2>
+
+<h3>Create</h3>
+
+<p>Create a plain text data bag</p>
+
+<pre><code>$ knife solo data bag create apps app_1
+</code></pre>
+
+<p>Create an encrypted data bag with the provided string as the secret</p>
+
+<pre><code>$ knife solo data bag create apps app_1 -s secret_key
+</code></pre>
+
+<p>Create an encrypted data bag with the provided file content as the secret</p>
+
+<pre><code>$ knife solo data bag create apps app_1 --secret-file 'SECRET_FILE'
+</code></pre>
+
+<p>Create a data bag item with JSON from the command line (works with encryption)</p>
+
+<pre><code>$ knife solo data bag create apps app_1 --json '{"id": "app_1", "username": "bob"}'
+</code></pre>
+
+<h3>Edit</h3>
+
+<p>Edit a plain text data bag</p>
+
+<pre><code>$ knife solo data bag edit apps app_1
+</code></pre>
+
+<p>Edit an encrypted data bag with the provided string as the secret</p>
+
+<pre><code>$ knife solo data bag edit apps app_1 -s secret_key
+</code></pre>
+
+<p>Edit an encrypted data bag with the provided file content as the secret</p>
+
+<pre><code>$ knife solo data bag edit apps app_1 --secret-file 'SECRET_FILE'
+</code></pre>
+
+<h3>List</h3>
+
+<p>List all of the data bag</p>
+
+<pre><code>$ knife solo data bag list
+</code></pre>
+
+<h3>Show</h3>
+
+<p>Show the plain text content of a data bag (if this is an encrypted data bag, it will return the encrypted data)</p>
+
+<pre><code>$ knife solo data bag show apps app_1
+</code></pre>
+
+<p>Show the unencrypted content of an encrypted data bag with the provided string as the secret</p>
+
+<pre><code>$ knife solo data bag show apps app_1 -s secret_key
+</code></pre>
+
+<p>Show the unencrypted content of an encrypted data bag with the provided file content as the secret</p>
+
+<pre><code>$ knife solo data bag show apps app_1 --secret-file 'SECRET_FILE'
+</code></pre>
+
+<p>You can also display any of the above variations in JSON format with <code>-F json</code></p>
+
+<pre><code>$ knife solo data bag show apps app_1 -s secret_key -F json
+</code></pre>
+
+<h2>Notes</h2>
+
+<p>This plugin will rely on the configured data_bag_path for placement of the data
+bags.  This defaults to '/var/chef/data_bags', but can be overriden in your chef
+client config.</p>
+
+<p>This plugin respects the "encrypted_data_bag_secret" configuration option in
+knife.rb. Command line secret arguments (-s or --secret-file) will override the
+setting in knife.rb.</p>
+
+<h2>Version Support</h2>
+
+<p>This plugin has been tested on the following:</p>
+
+<p>Chef:</p>
+
+<ul>
+<li>0.10.10</li>
+<li>10.12.x</li>
+<li>10.14.x</li>
+<li>10.16.x</li>
+</ul><p>Ruby:</p>
+
+<ul>
+<li>1.9.2</li>
+<li>1.9.3</li>
+</ul><p>OS:</p>
+
+<ul>
+<li>OSX</li>
+<li>Linux</li>
+</ul><h2>Contribute</h2>
+
+<ul>
+<li>Fork the project</li>
+<li>Make your feature addition or bug fix (with tests and docs) in a topic branch</li>
+<li>Bonus points for not mucking with the gemspec or version</li>
+<li>Send a pull request</li>
+</ul><h2>License</h2>
+
+<p>See LICENSE for details</p>
+        </section>
+
+        <footer>
+          Knife-solo data bag is maintained by <a href="https://github.com/thbishop">thbishop</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
