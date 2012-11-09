@@ -1,5 +1,8 @@
 # Knife Solo Data Bag
-A knife plugin to make working with data bags easier in a chef solo environment
+A knife plugin to make working with data bags easier in a chef solo environment.
+
+If you are looking for a full featured chef solo management solution, you may
+want to check out [knife solo](https://github.com/matschaffer/knife-solo).
 
 ## Build Status
 ![Build Status](https://secure.travis-ci.org/thbishop/knife-solo_data_bag.png)
@@ -66,6 +69,10 @@ You can also display any of the above variations in JSON format with `-F json`
 This plugin will rely on the configured data_bag_path for placement of the data
 bags.  This defaults to '/var/chef/data_bags', but can be overriden in your chef
 client config.
+
+This plugin respects the "encrypted_data_bag_path" configuration option in
+knife.rb. Command line secret arguments (-s or --secret-file) will override the
+the setting in knife.rb.
 
 ## Version Support
 This plugin has been tested on the following:
