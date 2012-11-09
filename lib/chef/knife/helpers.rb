@@ -61,7 +61,7 @@ module KnifeSoloDataBag
         ui.fatal 'Please specify either --secret or --secret-file only'
         exit 1
       elsif (config[:secret] && secret_path) || (config[:secret_file] && secret_path)
-        ui.debug 'NOTE: The encrypted_data_bag_secret option defined in knife.rb was overriden by the command line.'
+        ui.info 'NOTE: The encrypted_data_bag_secret option defined in knife.rb was overriden by the command line.'
       end
     end
 
