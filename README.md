@@ -70,9 +70,9 @@ This plugin will rely on the configured data_bag_path for placement of the data
 bags.  This defaults to '/var/chef/data_bags', but can be overriden in your chef
 client config.
 
-This plugin respects the "encrypted_data_bag_path" configuration option in
+This plugin respects the "encrypted_data_bag_secret" configuration option in
 knife.rb. Command line secret arguments (-s or --secret-file) will override the
-the setting in knife.rb.
+setting in knife.rb.
 
 ## Version Support
 This plugin has been tested on the following:
