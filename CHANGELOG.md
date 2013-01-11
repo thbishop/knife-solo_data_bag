@@ -1,7 +1,7 @@
 ## head
-* write pretty json to disk (addresses #1)
 
 ## 0.3.1 (01/11/2012)
+* write pretty json to disk (addresses #1)
 
 ## 0.3.0 (11/08/2012)
 * Add support for 'encrypted_data_bag_secret' in knife config (props to Anton Orel @skyeagle)
