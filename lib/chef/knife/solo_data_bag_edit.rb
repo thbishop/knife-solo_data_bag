@@ -56,7 +56,7 @@ module KnifeSoloDataBag
 
     def persist_bag_item(item)
       File.open bag_item_path, 'w' do |f|
-        f.write item.to_json
+        f.write JSON.pretty_generate(JSON.parse(item.to_json))
       end
     end
 
