@@ -26,6 +26,10 @@ module KnifeSoloDataBag
            :long  => '--json JSON_STRING',
            :description => 'The data bag json string that can be passed at the CLI'
 
+    option :data_bag_path,
+           :long => '--data_bag_path DATA_BAG_PATH',
+           :description => 'The path to data bag'
+
     def run
       @bag_name, @item_name = @name_args
       ensure_valid_arguments

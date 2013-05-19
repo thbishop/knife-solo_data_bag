@@ -12,6 +12,10 @@ module KnifeSoloDataBag
     end
 
     def bags_path
+      if config[:data_bag_path]
+        Chef::Config[:data_bag_path] = config[:data_bag_path]
+      end
+
       Chef::Config[:data_bag_path]
     end
 
