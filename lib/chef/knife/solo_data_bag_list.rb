@@ -11,6 +11,10 @@ module KnifeSoloDataBag
 
     attr_reader :bag_name
 
+    option :data_bag_path,
+           :long => '--data-bag-path DATA_BAG_PATH',
+           :description => 'The path to data bag'
+
     def run
       ensure_valid_arguments
       output format_for_display(bags)

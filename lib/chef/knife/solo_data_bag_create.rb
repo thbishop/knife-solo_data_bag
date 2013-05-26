@@ -31,7 +31,7 @@ module KnifeSoloDataBag
            :description => 'A file contining the data bag json string'
 
     option :data_bag_path,
-           :long => '--data_bag_path DATA_BAG_PATH',
+           :long => '--data-bag-path DATA_BAG_PATH',
            :description => 'The path to data bag'
 
     def run

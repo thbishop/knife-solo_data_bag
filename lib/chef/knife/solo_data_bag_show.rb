@@ -21,7 +21,7 @@ module KnifeSoloDataBag
            :description => 'A file containing the secret key to use to encrypt data bag item values'
 
     option :data_bag_path,
-           :long => '--data_bag_path DATA_BAG_PATH',
+           :long => '--data-bag-path DATA_BAG_PATH',
            :description => 'The path to data bag'
 
     def run
