@@ -33,6 +33,22 @@ describe KnifeSoloDataBag::SoloDataBagList do
         @stdout.string.should match /bag_1/
         @stdout.string.should match /bag_2/
       end
+
+      context 'with --data-bag-path' do
+        before do
+          @bags_path = '/opt/bags'
+          FileUtils.mkdir_p @bags_path
+          @bags.each { |b| FileUtils.mkdir_p "#{@bags_path}/#{b}-opt" }
+          @knife.config[:data_bag_path] = @bags_path
+        end
+
+        it 'should list all of the data bags' do
+          @knife.run
+          @stdout.string.should match /bag_1-opt/
+          @stdout.string.should match /bag_2-opt/
+        end
+      end
+
     end
 
   end

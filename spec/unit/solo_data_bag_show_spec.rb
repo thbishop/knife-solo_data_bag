@@ -43,6 +43,22 @@ describe KnifeSoloDataBag::SoloDataBagShow do
           @stdout.string.should match /foo/
           @stdout.string.should match /bar/
         end
+
+        context 'with --data-bag-path' do
+          before do
+            @bags_path       = '/opt/bags'
+            @bag_path        = "#{@bags_path}/bag_1"
+            FileUtils.mkdir_p @bag_path
+            @knife.config[:data_bag_path] = @bags_path
+          end
+
+          it 'uses the data bag path from the override' do
+            @knife.run
+            @stdout.string.should match /foo/
+            @stdout.string.should match /bar/
+          end
+        end
+
       end
 
       context 'when also specifying an item' do

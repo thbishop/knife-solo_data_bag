@@ -49,6 +49,20 @@ describe KnifeSoloDataBag::SoloDataBagCreate do
           JSON.parse(File.read(@item_path)).raw_data.should == @input_data
         end
 
+        context 'with --data-bag-path' do
+          before do
+            @override_bags_path           = '/opt/bags'
+            @override_bag_path            = "#{@override_bags_path}/bag_1"
+            @knife.config[:data_bag_path] = @override_bags_path
+            FileUtils.mkdir_p @override_bags_path
+          end
+
+          it 'uses the data bag path from the override' do
+            @knife.run
+            File.directory?(@override_bag_path).should be_true
+          end
+        end
+
         context 'when encrypting with -s or --secret' do
           before do
             @knife.name_args << 'bar'
