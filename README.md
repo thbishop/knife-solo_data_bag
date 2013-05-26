@@ -70,7 +70,7 @@ You can also display any of the above variations in JSON format with `-F json`
 By default, this plugin will use the configured data_bag_path. This is
 defaulted to `/var/chef/data_bags` by Chef. It is possible to override this
 path in your Chef client config if desired. When using this plugin, it is also
-possible to override the path using the `--data_bag_path` argument.
+possible to override the path using the `--data-bag-path` argument.
 
 ### Encrypted Data Bag Secret
 This plugin respects the "encrypted_data_bag_secret" configuration option in
