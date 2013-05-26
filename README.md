@@ -66,10 +66,13 @@ You can also display any of the above variations in JSON format with `-F json`
     $ knife solo data bag show apps app_1 -s secret_key -F json
 
 ## Notes
-This plugin will rely on the configured data_bag_path for placement of the data
-bags.  This defaults to '/var/chef/data_bags', but can be overriden in your chef
-client config.
+### Data Bag Path
+By default, this plugin will use the configured data_bag_path. This is
+defaulted to `/var/chef/data_bags` by Chef. It is possible to override this
+path in your Chef client config if desired. When using this plugin, it is also
+possible to override the path using the `--data_bag_path` argument.
 
+### Encrypted Data Bag Secret
 This plugin respects the "encrypted_data_bag_secret" configuration option in
 knife.rb. Command line secret arguments (-s or --secret-file) will override the
 setting in knife.rb.
