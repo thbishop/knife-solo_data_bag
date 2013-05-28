@@ -195,6 +195,22 @@ describe KnifeSoloDataBag::SoloDataBagCreate do
         end
       end
 
+      context 'when also specifying a json file' do
+        before do
+          @knife.name_args << 'bar'
+          @json_path                = '/var/chef/my_bag.json'
+          @knife.config[:json_file] = @json_path
+          @input_data               = {'id' => 'foo', 'sub' => {'key_1' => 'value_1', 'key_2' => 'value_2'}}
+          @item_path                = "#{@bag_path}/bar.json"
+          File.open(@json_path, 'w') { |f| f.write @input_data.to_json }
+        end
+
+        it 'creates the data bag item' do
+          @knife.run
+          JSON.parse(File.read(@item_path)).raw_data.should == @input_data
+        end
+      end
+
     end
 
   end

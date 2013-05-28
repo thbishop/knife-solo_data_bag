@@ -26,6 +26,10 @@ module KnifeSoloDataBag
            :long  => '--json JSON_STRING',
            :description => 'The data bag json string that can be passed at the CLI'
 
+    option :json_file,
+           :long  => '--json-file JSON_FILE',
+           :description => 'A file contining the data bag json string'
+
     option :data_bag_path,
            :long => '--data_bag_path DATA_BAG_PATH',
            :description => 'The path to data bag'
@@ -49,12 +53,16 @@ module KnifeSoloDataBag
 
     def create_item_object
       item = nil
-      if config[:json_string].nil?
+      case
+      when config[:json_string]
+        item = Chef::DataBagItem.from_hash bag_item_content(convert_json_string)
+      when config[:json_file]
+        json_string = JSON.parse(File.read(config[:json_file]))
+        item = Chef::DataBagItem.from_hash bag_item_content(json_string)
+      else
         create_object({'id' => item_name}, "data_bag_item[#{item_name}]") do |output|
           item = Chef::DataBagItem.from_hash bag_item_content(output)
         end
-      else
-        item = Chef::DataBagItem.from_hash bag_item_content(convert_json_string)
       end
       item
     end
