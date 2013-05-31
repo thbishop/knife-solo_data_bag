@@ -1,11 +1,13 @@
 ## head
+
+# 0.4.0 (05/30/2013)
 * Add support for creating a data bag item from a json file (--json-file)  ([@joeyates](https://github.com/joeyates))
 * Add support for specifying the data bag path on the command line (--data-bag-path) ([@ToQoz](https://github.com/ToQoz))
 
-## 0.3.2 (04/06/2012)
+## 0.3.2 (04/06/2013)
 * Send warning about overriding secret in knife.rb to STDERR instead of STDOUT (props to BK Box @gondoi)
 
-## 0.3.1 (01/11/2012)
+## 0.3.1 (01/11/2013)
 * Write pretty json to disk (addresses #1)
 
 ## 0.3.0 (11/08/2012)
