@@ -30,6 +30,10 @@ Create a data bag item with JSON from the command line (works with encryption)
 
     $ knife solo data bag create apps app_1 --json '{"id": "app_1", "username": "bob"}'
 
+Create a data bag item from a json file
+
+    $ knife solo data bag create apps app_1 --json-file foo.json
+
 ### Edit
 Edit a plain text data bag
 
