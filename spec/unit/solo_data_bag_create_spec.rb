@@ -46,10 +46,11 @@ describe KnifeSoloDataBag::SoloDataBagCreate do
 
         it 'should create the data bag item' do
           @knife.run
-          JSON.parse(File.read(@item_path)).raw_data.should == @input_data
+          item = JSON_to_databag_item(File.read(@item_path))
+          item.raw_data.should == @input_data
         end
 
-        context 'with --data-bag-path' do
+        context 'with --data/-bag-path' do
           before do
             @override_bags_path           = '/opt/bags'
             @override_bag_path            = "#{@override_bags_path}/bag_1"
@@ -71,7 +72,8 @@ describe KnifeSoloDataBag::SoloDataBagCreate do
 
           it 'should create the encrypted data bag item' do
             @knife.run
-            content = JSON.parse(File.read(@item_path)).raw_data
+            item = JSON_to_databag_item(File.read(@item_path))
+            content = item.raw_data
             @input_data.keys.reject{|i| i == 'id'}.each do |k|
               content.should have_key k
               content[k].should_not == @input_data[k]
@@ -91,7 +93,8 @@ describe KnifeSoloDataBag::SoloDataBagCreate do
 
           it 'should create the encrypted data bag item' do
             @knife.run
-            content = JSON.parse(File.read(@item_path)).raw_data
+            item = JSON_to_databag_item(File.read(@item_path))
+            content = item.raw_data
             @input_data.keys.reject{|i| i == 'id'}.each do |k|
               content.should have_key k
               content[k].should_not == @input_data[k]
@@ -112,7 +115,8 @@ describe KnifeSoloDataBag::SoloDataBagCreate do
 
           it 'creates the encrypted data bag item' do
             @knife.run
-            content = JSON.parse(File.read(@item_path)).raw_data
+            item = JSON_to_databag_item(File.read(@item_path))
+            content = item.raw_data
             @input_data.keys.reject{|i| i == 'id'}.each do |k|
               content.should have_key k
               content[k].should_not == @input_data[k]
@@ -133,7 +137,8 @@ describe KnifeSoloDataBag::SoloDataBagCreate do
 
         it 'should create the data bag item' do
           @knife.run
-          JSON.parse(File.read(@item_path)).raw_data.should == @input_data
+          item = JSON_to_databag_item(File.read(@item_path))
+          item.raw_data.should == @input_data
         end
 
         context 'when encrypting with -s or --secret' do
@@ -144,7 +149,8 @@ describe KnifeSoloDataBag::SoloDataBagCreate do
 
           it 'should create the encrypted data bag item' do
             @knife.run
-            content = JSON.parse(File.read(@item_path)).raw_data
+            item = JSON_to_databag_item(File.read(@item_path))
+            content = item.raw_data
             @input_data.keys.reject{|i| i == 'id'}.each do |k|
               content.should have_key k
               content[k].should_not == @input_data[k]
@@ -164,7 +170,8 @@ describe KnifeSoloDataBag::SoloDataBagCreate do
 
           it 'should create the encrypted data bag item' do
             @knife.run
-            content = JSON.parse(File.read(@item_path)).raw_data
+            item = JSON_to_databag_item(File.read(@item_path))
+            content = item.raw_data
             @input_data.keys.reject{|i| i == 'id'}.each do |k|
               content.should have_key k
               content[k].should_not == @input_data[k]
@@ -185,7 +192,8 @@ describe KnifeSoloDataBag::SoloDataBagCreate do
 
           it 'creates the encrypted data bag item' do
             @knife.run
-            content = JSON.parse(File.read(@item_path)).raw_data
+            item = JSON_to_databag_item(File.read(@item_path))
+            content = item.raw_data
             @input_data.keys.reject{|i| i == 'id'}.each do |k|
               content.should have_key k
               content[k].should_not == @input_data[k]
@@ -207,7 +215,8 @@ describe KnifeSoloDataBag::SoloDataBagCreate do
 
         it 'creates the data bag item' do
           @knife.run
-          JSON.parse(File.read(@item_path)).raw_data.should == @input_data
+          item = JSON_to_databag_item(File.read(@item_path))
+          item.raw_data.should == @input_data
         end
       end
 
