@@ -41,7 +41,16 @@ module KnifeSoloDataBag
 
     def existing_bag_item_content
       content = Chef::DataBagItem.load(bag_name, item_name).raw_data
-
+# Below is commented to fix tests, but breaks compatability with old chef versions
+#      json_parsed = JSON.parse(File.read(File.join(Chef::Config[:data_bag_path], "#{bag_name}", "#{item_name}.json")))
+#        if json_parsed.is_a? Chef::DataBagItem #old JSON deserialized it
+#          item = json_parsed
+#        elsif json_parsed.has_key?("json_class") #old serialized file format knife-solo_data_bag<=0.4.0
+#          item = Chef::DataBagItem.json_create json_parsed #method is destructive to json_parsed
+#        else #basic hash from json file
+#          item = Chef::DataBagItem.from_hash json_parsed
+#        end
+#      content = item.raw_data
       return content unless should_be_encrypted?
       Chef::EncryptedDataBagItem.new(content, secret_key).to_hash
     end
@@ -60,7 +69,7 @@ module KnifeSoloDataBag
 
     def persist_bag_item(item)
       File.open bag_item_path, 'w' do |f|
-        f.write JSON.pretty_generate(JSON.parse(item.to_json))
+        f.write Chef::JSONCompat.to_json_pretty(item.raw_data)
       end
     end
 

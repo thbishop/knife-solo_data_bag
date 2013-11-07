@@ -55,20 +55,16 @@ describe KnifeSoloDataBag::SoloDataBagEdit do
 
       it 'should edit the data bag item' do
         @knife.run
-        JSON.parse(File.read(@item_path)).raw_data.should == @updated_data
+        #JSON.parse(File.read(@item_path)).raw_data.should == @updated_data
+        item = JSON_to_databag_item(File.read(@item_path))
+        item.raw_data.should == @updated_data
       end
 
       it 'should write pretty json' do
         @knife.run
         File.read(@item_path).should == %q({
-  "name": "data_bag_item_bag_1_foo",
-  "json_class": "Chef::DataBagItem",
-  "chef_type": "data_bag_item",
-  "data_bag": "bag_1",
-  "raw_data": {
-    "id": "foo",
-    "who": "sue"
-  }
+  "id": "foo",
+  "who": "sue"
 })
       end
 
@@ -83,7 +79,8 @@ describe KnifeSoloDataBag::SoloDataBagEdit do
 
         it 'uses the data bag path from the override' do
           @knife.run
-          data = JSON.parse(File.read(@override_item_path)).raw_data
+          item = JSON_to_databag_item(File.read(@override_item_path))
+          data = item.raw_data
           data.should == @updated_data
         end
       end
@@ -98,7 +95,8 @@ describe KnifeSoloDataBag::SoloDataBagEdit do
 
         it 'should edit the encrypted data bag item' do
           @knife.run
-          content = JSON.parse(File.read(@item_path)).raw_data
+          item = JSON_to_databag_item(File.read(@item_path))
+          content = item.raw_data
           content['who'].should_not == @orig_data['who']
           content['who'].should_not be_nil
         end
@@ -118,7 +116,8 @@ describe KnifeSoloDataBag::SoloDataBagEdit do
 
         it 'should edit the encrypted data bag item' do
           @knife.run
-          content = JSON.parse(File.read(@item_path)).raw_data
+          item = JSON_to_databag_item(File.read(@item_path))
+          content = item.raw_data
           content['who'].should_not == @orig_data['who']
           content['who'].should_not be_nil
         end
@@ -140,7 +139,8 @@ describe KnifeSoloDataBag::SoloDataBagEdit do
 
         it 'should edit the encrypted data bag item' do
           @knife.run
-          content = JSON.parse(File.read(@item_path)).raw_data
+          item = JSON_to_databag_item(File.read(@item_path))
+          content = item.raw_data
           content['who'].should_not == @orig_data['who']
           content['who'].should_not be_nil
         end
