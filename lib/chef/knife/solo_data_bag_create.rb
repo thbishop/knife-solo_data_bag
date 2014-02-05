@@ -2,6 +2,8 @@ module KnifeSoloDataBag
 
   class SoloDataBagCreate < Chef::Knife
 
+    require 'chef/data_bag'
+    require 'chef/encrypted_data_bag_item'
     require 'chef/knife/helpers'
     require 'fileutils'
 
