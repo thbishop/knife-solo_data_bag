@@ -85,10 +85,7 @@ setting in knife.rb.
 This plugin has been tested on the following:
 
 Chef:
-* 0.10.10
-* 10.12.x
-* 10.14.x
-* 10.16.x
+* > 11.4.0
 
 Ruby:
 * 1.9.2
