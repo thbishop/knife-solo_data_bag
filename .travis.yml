@@ -8,3 +8,6 @@ gemfile:
   - ./gemfiles/Gemfile.chef.10.12.0
   - ./gemfiles/Gemfile.chef.10.14.0
   - ./gemfiles/Gemfile.chef.10.16.0
+  - ./gemfiles/Gemfile.chef.11.6.2
+  - ./gemfiles/Gemfile.chef.11.8.0
+  - ./gemfiles/Gemfile.chef.11.8.2
