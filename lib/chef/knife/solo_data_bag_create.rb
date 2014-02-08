@@ -82,12 +82,6 @@ module KnifeSoloDataBag
       validate_json_string unless config[:json_string].nil?
     end
 
-    def persist_bag_item(item)
-      File.open bag_item_path, 'w' do |f|
-        f.write item.to_json
-      end
-    end
-
   end
 
 end

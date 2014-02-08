@@ -19,6 +19,12 @@ module KnifeSoloDataBag
       Chef::Config[:data_bag_path]
     end
 
+    def persist_bag_item(item)
+      File.open bag_item_path, 'w' do |f|
+        f.write JSON.pretty_generate(item.raw_data)
+      end
+    end
+
     def secret_path
       Chef::Config[:encrypted_data_bag_secret]
     end

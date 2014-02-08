@@ -55,21 +55,13 @@ describe KnifeSoloDataBag::SoloDataBagEdit do
 
       it 'should edit the data bag item' do
         @knife.run
-        JSON.parse(File.read(@item_path))['raw_data'].should == @updated_data
+        JSON.parse(File.read(@item_path)).should == @updated_data
       end
 
       it 'should write pretty json' do
         @knife.run
-        File.read(@item_path).should == %q({
-  "name": "data_bag_item_bag_1_foo",
-  "json_class": "Chef::DataBagItem",
-  "chef_type": "data_bag_item",
-  "data_bag": "bag_1",
-  "raw_data": {
-    "id": "foo",
-    "who": "sue"
-  }
-})
+        data = JSON.pretty_generate(:id => 'foo', :who => 'sue')
+        File.read(@item_path).should == data
       end
 
       context 'with --data-bag-path' do
@@ -83,7 +75,7 @@ describe KnifeSoloDataBag::SoloDataBagEdit do
 
         it 'uses the data bag path from the override' do
           @knife.run
-          data = JSON.parse(File.read(@override_item_path))['raw_data']
+          data = JSON.parse(File.read(@override_item_path))
           data.should == @updated_data
         end
       end
@@ -98,7 +90,7 @@ describe KnifeSoloDataBag::SoloDataBagEdit do
 
         it 'should edit the encrypted data bag item' do
           @knife.run
-          content = JSON.parse(File.read(@item_path))['raw_data']
+          content = JSON.parse(File.read(@item_path))
           content['who'].should_not == @orig_data['who']
           content['who'].should_not be_nil
         end
@@ -118,7 +110,7 @@ describe KnifeSoloDataBag::SoloDataBagEdit do
 
         it 'should edit the encrypted data bag item' do
           @knife.run
-          content = JSON.parse(File.read(@item_path))['raw_data']
+          content = JSON.parse(File.read(@item_path))
           content['who'].should_not == @orig_data['who']
           content['who'].should_not be_nil
         end
@@ -140,7 +132,7 @@ describe KnifeSoloDataBag::SoloDataBagEdit do
 
         it 'should edit the encrypted data bag item' do
           @knife.run
-          content = JSON.parse(File.read(@item_path))['raw_data']
+          content = JSON.parse(File.read(@item_path))
           content['who'].should_not == @orig_data['who']
           content['who'].should_not be_nil
         end

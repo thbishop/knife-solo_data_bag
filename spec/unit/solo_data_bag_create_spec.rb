@@ -46,8 +46,13 @@ describe KnifeSoloDataBag::SoloDataBagCreate do
 
         it 'should create the data bag item' do
           @knife.run
-          JSON.parse(File.read(@item_path))['raw_data'].should == @input_data
+          JSON.parse(File.read(@item_path)).should == @input_data
         end
+
+        it 'should write pretty json' do
+          @knife.run
+          File.read(@item_path).should == JSON.pretty_generate(@input_data)
+      end
 
         context 'with --data-bag-path' do
           before do
@@ -71,7 +76,7 @@ describe KnifeSoloDataBag::SoloDataBagCreate do
 
           it 'should create the encrypted data bag item' do
             @knife.run
-            content = JSON.parse(File.read(@item_path))['raw_data']
+            content = JSON.parse(File.read(@item_path))
             @input_data.keys.reject{|i| i == 'id'}.each do |k|
               content.should have_key k
               content[k].should_not == @input_data[k]
@@ -91,7 +96,7 @@ describe KnifeSoloDataBag::SoloDataBagCreate do
 
           it 'should create the encrypted data bag item' do
             @knife.run
-            content = JSON.parse(File.read(@item_path))['raw_data']
+            content = JSON.parse(File.read(@item_path))
             @input_data.keys.reject{|i| i == 'id'}.each do |k|
               content.should have_key k
               content[k].should_not == @input_data[k]
@@ -112,7 +117,7 @@ describe KnifeSoloDataBag::SoloDataBagCreate do
 
           it 'creates the encrypted data bag item' do
             @knife.run
-            content = JSON.parse(File.read(@item_path))['raw_data']
+            content = JSON.parse(File.read(@item_path))
             @input_data.keys.reject{|i| i == 'id'}.each do |k|
               content.should have_key k
               content[k].should_not == @input_data[k]
@@ -133,7 +138,7 @@ describe KnifeSoloDataBag::SoloDataBagCreate do
 
         it 'should create the data bag item' do
           @knife.run
-          JSON.parse(File.read(@item_path))['raw_data'].should == @input_data
+          JSON.parse(File.read(@item_path)).should == @input_data
         end
 
         context 'when encrypting with -s or --secret' do
@@ -144,7 +149,7 @@ describe KnifeSoloDataBag::SoloDataBagCreate do
 
           it 'should create the encrypted data bag item' do
             @knife.run
-            content = JSON.parse(File.read(@item_path))['raw_data']
+            content = JSON.parse(File.read(@item_path))
             @input_data.keys.reject{|i| i == 'id'}.each do |k|
               content.should have_key k
               content[k].should_not == @input_data[k]
@@ -164,7 +169,7 @@ describe KnifeSoloDataBag::SoloDataBagCreate do
 
           it 'should create the encrypted data bag item' do
             @knife.run
-            content = JSON.parse(File.read(@item_path))['raw_data']
+            content = JSON.parse(File.read(@item_path))
             @input_data.keys.reject{|i| i == 'id'}.each do |k|
               content.should have_key k
               content[k].should_not == @input_data[k]
@@ -185,7 +190,7 @@ describe KnifeSoloDataBag::SoloDataBagCreate do
 
           it 'creates the encrypted data bag item' do
             @knife.run
-            content = JSON.parse(File.read(@item_path))['raw_data']
+            content = JSON.parse(File.read(@item_path))
             @input_data.keys.reject{|i| i == 'id'}.each do |k|
               content.should have_key k
               content[k].should_not == @input_data[k]
@@ -207,7 +212,7 @@ describe KnifeSoloDataBag::SoloDataBagCreate do
 
         it 'creates the data bag item' do
           @knife.run
-          JSON.parse(File.read(@item_path))['raw_data'].should == @input_data
+          JSON.parse(File.read(@item_path)).should == @input_data
         end
       end
 

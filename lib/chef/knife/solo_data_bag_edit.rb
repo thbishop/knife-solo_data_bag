@@ -58,12 +58,6 @@ module KnifeSoloDataBag
       validate_multiple_secrets_were_not_provided
     end
 
-    def persist_bag_item(item)
-      File.open bag_item_path, 'w' do |f|
-        f.write JSON.pretty_generate(JSON.parse(item.to_json))
-      end
-    end
-
     def validate_item_name_provided
       unless item_name
         show_usage
