@@ -34,7 +34,11 @@ module KnifeSoloDataBag
     private
     def edit_content
       updated_content = edit_data existing_bag_item_content
-      item = Chef::DataBagItem.from_hash format_editted_content(updated_content)
+      update_bag_item updated_content
+    end
+
+    def update_bag_item(new_content)
+      item = Chef::DataBagItem.from_hash format_editted_content(new_content)
       item.data_bag bag_name
       persist_bag_item item
     end
