@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe KnifeSoloDataBag::SoloDataBagCreate do
+describe Chef::Knife::SoloDataBagCreate do
   before do
     @knife  = subject
   end

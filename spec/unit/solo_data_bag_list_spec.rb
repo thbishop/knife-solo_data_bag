@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe KnifeSoloDataBag::SoloDataBagList do
+describe Chef::Knife::SoloDataBagList do
   before do
     @knife = subject
   end
