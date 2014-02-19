@@ -16,7 +16,7 @@ function download_chef_version() {
   $DATA_DIR/chef_install.sh -v $1
 }
 
-for version in 11.2.0-1 11.4.4-2 11.6.2-1 11.8.2-1 11.10.0-1; do
+for version in 11.2.0-1 11.4.4-2 11.6.2-1 11.8.2-1 11.10.0-1 11.10.2-1; do
   echo "##############################"
   echo "# Processing $version"
   echo "##############################"
