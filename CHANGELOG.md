@@ -1,5 +1,7 @@
 ## head
 
+* fix loading of helpers (#18)
+
 # 1.0.0 (02/27/2014)
 * Only supports > chef 11.4. Use pre 1.0.0 versions for older chef support
 
