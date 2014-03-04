@@ -10,7 +10,6 @@ class Chef
         require 'fileutils'
         require 'chef/encrypted_data_bag_item'
         require 'chef/json_compat'
-        require 'chef/knife/helpers'
       end
 
       require 'chef/knife/solo_data_bag_helpers'

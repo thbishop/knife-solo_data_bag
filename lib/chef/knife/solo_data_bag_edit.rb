@@ -5,11 +5,7 @@ class Chef
 
     class SoloDataBagEdit < Knife
 
-      deps do
-        require 'chef/knife/helpers'
-        require 'chef/knife/solo_data_bag_helpers'
-      end
-
+      require 'chef/knife/solo_data_bag_helpers'
       include Chef::Knife::SoloDataBagHelpers
 
       banner 'knife solo data bag edit BAG ITEM (options)'
