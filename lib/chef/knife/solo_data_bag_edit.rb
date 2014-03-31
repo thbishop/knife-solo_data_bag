@@ -45,6 +45,7 @@ class Chef
             break
           rescue Yajl::ParseError => e
             loop do
+              ui.stdout.puts e.to_s
               continue = ui.ask('Keep editing? (Y/N)')
               case continue
               when 'Y', 'y'
