@@ -1,3 +1,4 @@
+require 'tempfile'
 require 'chef/knife'
 
 class Chef
@@ -35,10 +36,44 @@ class Chef
 
       private
       def edit_content
-        updated_content = edit_data existing_bag_item_content
+        content = Chef::JSONCompat.to_json_pretty(existing_bag_item_content)
+        updated_content = nil
+        loop do
+          unparsed = edit_text content
+          begin
+            updated_content = Chef::JSONCompat.from_json(unparsed)
+            break
+          rescue Yajl::ParseError => e
+            loop do
+              continue = ui.ask('Keep editing? (Y/N)')
+              case continue
+              when 'Y', 'y'
+                content = unparsed
+                break
+              when 'N', 'n'
+                raise e
+              else
+                ui.stdout.puts 'Please answer Y or N'
+              end
+            end
+          end
+        end
         item = Chef::DataBagItem.from_hash format_editted_content(updated_content)
         item.data_bag bag_name
         persist_bag_item item
+      end
+
+      def edit_text(text)
+        tf = Tempfile.new(['knife-edit', '.json'])
+        tf.sync = true
+        tf.puts text
+        tf.close
+
+        raise "Please set EDITOR environment variable" unless Kernel.system("#{config[:editor]} #{tf.path}")
+
+        output = File.read(tf.path)
+        tf.unlink
+        output
       end
 
       def existing_bag_item_content
