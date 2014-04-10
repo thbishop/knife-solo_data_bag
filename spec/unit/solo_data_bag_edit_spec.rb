@@ -27,6 +27,18 @@ describe Chef::Knife::SoloDataBagEdit do
     end
 
     context 'with valid arguments' do
+      let(:tf) do
+        double(
+          'Tempfile',
+          :sync= => nil,
+          :puts => nil,
+          :close => nil,
+          :path => tempfile_name,
+          :unlink => true
+        )
+      end
+      let(:tempfile_name) { '/tmp/foo' }
+
       before do
         @bags_path        = '/var/chef/data_bags'
         @bag_path         = "#{@bags_path}/bag_1"
@@ -44,7 +56,10 @@ describe Chef::Knife::SoloDataBagEdit do
 
         Chef::DataBagItem.should_receive(:load).with('bag_1', 'foo').
                                                 and_return(@bag_item_foo)
-        @knife.stub(:edit_data).and_return(@updated_data)
+        Tempfile.stub(:new).and_return(tf)
+        Kernel.stub(:system => true)
+        File.stub(:read).and_call_original
+        File.stub(:read).with(tempfile_name).and_return(@updated_data.to_json)
         Chef::Config[:data_bag_path] = @bags_path
       end
 
@@ -135,6 +150,55 @@ describe Chef::Knife::SoloDataBagEdit do
           content = JSON.parse(File.read(@item_path))
           content['who'].should_not == @orig_data['who']
           content['who'].should_not be_nil
+        end
+      end
+
+      context 'with malformed JSON' do
+        let(:user_wants_to_reedit) { 'Y' }
+
+        before do
+          @knife.config[:editor] = 'vimacs'
+          @pass = 0
+          @asked_to_continue = 0
+          File.stub(:read).with(tempfile_name) do
+            @pass += 1
+            case @pass
+            when 1
+              '{,badjson}'
+            else
+              @updated_data.to_json
+            end
+          end
+          @knife.ui.stub(:ask) do
+            case @pass
+            when 1
+              @asked_to_continue += 1
+              user_wants_to_reedit
+            end
+          end
+        end
+
+        it 'asks whether to re-edit' do
+          @knife.run
+          @asked_to_continue.should == 1
+        end
+
+        context 'when the user wants to re-edit' do
+          it 'the editor is re-opened' do
+            Kernel.should_receive(:system).with("vimacs #{tempfile_name}").
+                                           exactly(2).times.and_return(true)
+            @knife.run
+          end
+        end
+
+        context "the user doesn't want to re-edit" do
+          let(:user_wants_to_reedit) { 'N' }
+
+          it 'an error is thrown' do
+            lambda {
+              @knife.run
+            }.should raise_error(Yajl::ParseError)
+          end
         end
       end
 
