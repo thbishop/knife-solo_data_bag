@@ -46,7 +46,8 @@ class Chef
           rescue Yajl::ParseError => e
             loop do
               ui.stdout.puts e.to_s
-              continue = ui.ask('Keep editing? (Y/N)')
+              question = "Do you want to keep editing (Y/N)? If you choose 'N', all changes will be lost"
+              continue = ui.ask question
               case continue
               when 'Y', 'y'
                 content = unparsed
