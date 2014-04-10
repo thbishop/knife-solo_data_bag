@@ -1,5 +1,9 @@
 ## head
 
+# 1.1.0 (04/10/2014)
+
+* add ability to correct incorrect text when editing a data bag
+
 # 1.0.1 (03/06/2014)
 
 * fix loading of helpers (#18)
