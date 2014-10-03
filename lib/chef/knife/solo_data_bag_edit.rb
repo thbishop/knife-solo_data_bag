@@ -43,7 +43,8 @@ class Chef
           begin
             updated_content = Chef::JSONCompat.from_json(unparsed)
             break
-          rescue Yajl::ParseError => e
+          rescue => e
+            raise e if !is_invalid_json_error?(e)
             loop do
               ui.stdout.puts e.to_s
               question = "Do you want to keep editing (Y/N)? If you choose 'N', all changes will be lost"
@@ -103,6 +104,10 @@ class Chef
           ui.fatal 'You must supply a name for the item'
           exit 1
         end
+      end
+
+      def is_invalid_json_error?(exception)
+        exception.class.to_s.end_with?("::ParseError")
       end
 
     end

@@ -197,7 +197,7 @@ describe Chef::Knife::SoloDataBagEdit do
           it 'an error is thrown' do
             lambda {
               @knife.run
-            }.should raise_error(Yajl::ParseError)
+            }.should raise_error
           end
         end
       end
