@@ -45,8 +45,16 @@ class Chef
             break
           rescue => e
             case
-            when (Object.const_defined?('::Yajl::ParseError') && e.is_a?(Yajl::ParseError))
-            when (Object.const_defined?('::FFI_Yajl::ParseError') && e.is_a?(FFI_Yajl::ParseError))
+            when (
+              Object.const_defined?('Yajl') &&
+              Yajl.const_defined?('ParseError') &&
+              e.is_a?(Yajl::ParseError)
+            )
+            when (
+              Object.const_defined?('FFI_Yajl') &&
+              FFI_Yajl.const_defined?('ParseError') &&
+              e.is_a?(FFI_Yajl::ParseError)
+            )
             else
               raise e
             end

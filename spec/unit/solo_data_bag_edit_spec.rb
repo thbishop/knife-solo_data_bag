@@ -195,9 +195,15 @@ describe Chef::Knife::SoloDataBagEdit do
           let(:user_wants_to_reedit) { 'N' }
           let(:error_class) do
             case
-            when Object.const_defined?('::Yajl::ParseError')
+            when (
+              Object.const_defined?('Yajl') &&
+              Yajl.const_defined?('ParseError')
+            )
               Yajl::ParseError
-            when Object.const_defined?('::FFI_Yajl::ParseError')
+            when (
+              Object.const_defined?('FFI_Yajl') &&
+              FFI_Yajl.const_defined?('ParseError')
+            )
               FFI_Yajl::ParseError
             else
               StandardError
