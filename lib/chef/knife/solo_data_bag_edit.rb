@@ -43,7 +43,21 @@ class Chef
           begin
             updated_content = Chef::JSONCompat.from_json(unparsed)
             break
-          rescue Yajl::ParseError => e
+          rescue => e
+            case
+            when (
+              Object.const_defined?('Yajl') &&
+              Yajl.const_defined?('ParseError') &&
+              e.is_a?(Yajl::ParseError)
+            )
+            when (
+              Object.const_defined?('FFI_Yajl') &&
+              FFI_Yajl.const_defined?('ParseError') &&
+              e.is_a?(FFI_Yajl::ParseError)
+            )
+            else
+              raise e
+            end
             loop do
               ui.stdout.puts e.to_s
               question = "Do you want to keep editing (Y/N)? If you choose 'N', all changes will be lost"

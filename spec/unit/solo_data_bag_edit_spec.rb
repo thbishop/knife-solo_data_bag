@@ -193,11 +193,27 @@ describe Chef::Knife::SoloDataBagEdit do
 
         context "the user doesn't want to re-edit" do
           let(:user_wants_to_reedit) { 'N' }
+          let(:error_class) do
+            case
+            when (
+              Object.const_defined?('Yajl') &&
+              Yajl.const_defined?('ParseError')
+            )
+              Yajl::ParseError
+            when (
+              Object.const_defined?('FFI_Yajl') &&
+              FFI_Yajl.const_defined?('ParseError')
+            )
+              FFI_Yajl::ParseError
+            else
+              StandardError
+            end
+          end
 
           it 'an error is thrown' do
             lambda {
               @knife.run
-            }.should raise_error(Yajl::ParseError)
+            }.should raise_error(error_class)
           end
         end
       end
