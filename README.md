@@ -11,9 +11,12 @@ If you need support for an earlier version of chef, use a knife solo data bag ve
 ![Build Status](https://secure.travis-ci.org/thbishop/knife-solo_data_bag.png)
 
 ## Installation
+```sh
+gem install knife-solo_data_bag
 
-    gem install knife-solo_data_bag
-
+# or if using ChefDK
+chef gem install knife-solo_data_bag
+```
 ## Usage
 
 ### Create
