@@ -10,3 +10,4 @@ gemfile:
   - ./gemfiles/Gemfile.chef.11.10.0
   - ./gemfiles/Gemfile.chef.11.10.2
   - ./gemfiles/Gemfile.chef.11.10.4
+  - ./gemfiles/Gemfile.chef.12.12.15
