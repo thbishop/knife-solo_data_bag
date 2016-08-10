@@ -28,6 +28,7 @@ class Chef
 
       def run
         Chef::Config[:solo]   = true
+        Chef::Config[:solo_legacy_mode] = true
         @bag_name, @item_name = @name_args
         ensure_valid_arguments
         display_content
