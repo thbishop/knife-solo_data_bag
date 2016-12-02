@@ -1,5 +1,5 @@
 source "http://rubygems.org"
 
-gem 'chef', '11.10.0'
+gem 'chef', '12.16.42'
 
 gemspec :path => "../"
