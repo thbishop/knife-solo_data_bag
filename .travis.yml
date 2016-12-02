@@ -2,8 +2,10 @@ language: ruby
 rvm:
   - 1.9.3
 
+before_install:
+  - gem install bundler
+
 gemfile:
-  - ./gemfiles/Gemfile.chef.11.4.4
   - ./gemfiles/Gemfile.chef.11.6.2
   - ./gemfiles/Gemfile.chef.11.8.0
   - ./gemfiles/Gemfile.chef.11.8.2
