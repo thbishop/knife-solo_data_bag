@@ -72,7 +72,8 @@ class Chef
         tf.puts text
         tf.close
 
-        raise "Please set EDITOR environment variable" unless Kernel.system("#{config[:editor]} #{tf.path}")
+        exit_status = Kernel.system("#{config[:editor]} #{tf.path}")
+        raise "Please set EDITOR environment variable" if !exit_status
 
         output = File.read(tf.path)
         tf.unlink

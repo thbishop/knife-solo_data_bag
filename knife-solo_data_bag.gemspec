@@ -14,7 +14,7 @@ Gem::Specification.new do |gem|
   gem.name          = "knife-solo_data_bag"
   gem.require_paths = ["lib"]
   gem.version       = Knife::SoloDataBag::VERSION
-  gem.add_development_dependency 'rake', '< 11.0'
-  gem.add_development_dependency 'rspec', '~> 2.13.0'
-  gem.add_development_dependency 'fakefs', '~> 0.4.0'
+  gem.add_development_dependency 'rake'
+  gem.add_development_dependency 'rspec', '>= 3.0'
+  gem.add_development_dependency 'fakefs'
 end

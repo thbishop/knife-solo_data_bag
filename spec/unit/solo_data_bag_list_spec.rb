@@ -30,8 +30,8 @@ describe Chef::Knife::SoloDataBagList do
 
       it 'should list all of the data bags' do
         @knife.run
-        @stdout.string.should match /bag_1/
-        @stdout.string.should match /bag_2/
+        expect(@stdout.string).to match(/bag_1/)
+        expect(@stdout.string).to match(/bag_2/)
       end
 
       context 'with --data-bag-path' do
@@ -44,8 +44,8 @@ describe Chef::Knife::SoloDataBagList do
 
         it 'should list all of the data bags' do
           @knife.run
-          @stdout.string.should match /bag_1-opt/
-          @stdout.string.should match /bag_2-opt/
+          expect(@stdout.string).to match(/bag_1-opt/)
+          expect(@stdout.string).to match(/bag_2-opt/)
         end
       end
 

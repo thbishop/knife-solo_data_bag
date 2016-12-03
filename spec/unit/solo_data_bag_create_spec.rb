@@ -8,9 +8,10 @@ describe Chef::Knife::SoloDataBagCreate do
   include_context 'stubbed_out_stdout_and_stderr'
 
   describe 'run' do
+    let(:secret_path) { '/var/chef/secret.txt' }
+
     include_context 'bag_name_not_provided'
     include_context 'bag_path_is_not_valid'
-    include_context 'secret_string_and_secret_file_are_both_provided'
 
     context 'with valid arguments' do
       before do
@@ -21,7 +22,12 @@ describe Chef::Knife::SoloDataBagCreate do
 
         FakeFS.activate!
         FileUtils.mkdir_p @bags_path
+        allow(Chef::EncryptedDataBagItem).to receive(:load_secret).
+                                             with(secret_path).
+                                             and_return('psst')
       end
+
+      include_context 'secret_string_and_secret_file_are_both_provided'
 
       after do
         FakeFS.deactivate!
@@ -31,8 +37,8 @@ describe Chef::Knife::SoloDataBagCreate do
       context 'if an item is not specified' do
         it 'should create the data bag' do
           @knife.run
-          File.directory?(@bags_path).should be_true
-          File.directory?(@bag_path).should be_true
+          expect(File.directory?(@bags_path)).to be_truthy
+          expect(File.directory?(@bag_path)).to be_truthy
         end
       end
 
@@ -41,17 +47,18 @@ describe Chef::Knife::SoloDataBagCreate do
           @knife.name_args << 'bar'
           @input_data = {'id' => 'foo', 'key_1' => 'value_1', 'key_2' => 'value_2'}
           @item_path  = "#{@bag_path}/bar.json"
-          @knife.stub(:create_object).and_yield(@input_data).and_return(nil)
+          allow(@knife).to receive(:create_object).
+                           and_yield(@input_data).and_return(nil)
         end
 
         it 'should create the data bag item' do
           @knife.run
-          JSON.parse(File.read(@item_path)).should == @input_data
+          expect(JSON.parse(File.read(@item_path))).to eq(@input_data)
         end
 
         it 'should write pretty json' do
           @knife.run
-          File.read(@item_path).should == JSON.pretty_generate(@input_data)
+          expect(File.read(@item_path)).to eq(JSON.pretty_generate(@input_data))
       end
 
         context 'with --data-bag-path' do
@@ -64,7 +71,7 @@ describe Chef::Knife::SoloDataBagCreate do
 
           it 'uses the data bag path from the override' do
             @knife.run
-            File.directory?(@override_bag_path).should be_true
+            expect(File.directory?(@override_bag_path)).to be_truthy
           end
         end
 
@@ -78,39 +85,32 @@ describe Chef::Knife::SoloDataBagCreate do
             @knife.run
             content = JSON.parse(File.read(@item_path))
             @input_data.keys.reject{|i| i == 'id'}.each do |k|
-              content.should have_key k
-              content[k].should_not == @input_data[k]
+              expect(content).to have_key(k)
+              expect(content[k]).not_to eq(@input_data[k])
             end
           end
         end
 
         context 'when encrypting with --secret-file' do
+
           before do
             @knife.name_args            << 'bar'
-            @secret_path                = '/var/chef/secret.txt'
-            @knife.config[:secret_file] = @secret_path
-            Chef::EncryptedDataBagItem.should_receive(:load_secret).
-                                       with(@secret_path).
-                                       and_return('psst')
+            @knife.config[:secret_file] = secret_path
           end
 
           it 'should create the encrypted data bag item' do
             @knife.run
             content = JSON.parse(File.read(@item_path))
             @input_data.keys.reject{|i| i == 'id'}.each do |k|
-              content.should have_key k
-              content[k].should_not == @input_data[k]
+              expect(content).to have_key(k)
+              expect(content[k]).to_not eq(@input_data[k])
             end
           end
         end
 
         context 'when encrypting with secret set in knife config' do
           before do
-            @secret_path                             = '/var/chef/secret.txt'
-            Chef::Config[:encrypted_data_bag_secret] = @secret_path
-            Chef::EncryptedDataBagItem.should_receive(:load_secret).
-                                       with(@secret_path).
-                                       and_return('psst')
+            Chef::Config[:encrypted_data_bag_secret] = secret_path
           end
 
           after { Chef::Config[:encrypted_data_bag_secret] = nil }
@@ -119,8 +119,8 @@ describe Chef::Knife::SoloDataBagCreate do
             @knife.run
             content = JSON.parse(File.read(@item_path))
             @input_data.keys.reject{|i| i == 'id'}.each do |k|
-              content.should have_key k
-              content[k].should_not == @input_data[k]
+              expect(content).to have_key(k)
+              expect(content[k]).to_not eq(@input_data[k])
             end
           end
 
@@ -138,7 +138,7 @@ describe Chef::Knife::SoloDataBagCreate do
 
         it 'should create the data bag item' do
           @knife.run
-          JSON.parse(File.read(@item_path)).should == @input_data
+          expect(JSON.parse(File.read(@item_path))).to eq(@input_data)
         end
 
         context 'when encrypting with -s or --secret' do
@@ -151,8 +151,8 @@ describe Chef::Knife::SoloDataBagCreate do
             @knife.run
             content = JSON.parse(File.read(@item_path))
             @input_data.keys.reject{|i| i == 'id'}.each do |k|
-              content.should have_key k
-              content[k].should_not == @input_data[k]
+              expect(content).to have_key(k)
+              expect(content[k]).to_not eq(@input_data[k])
             end
           end
         end
@@ -160,30 +160,22 @@ describe Chef::Knife::SoloDataBagCreate do
         context 'when encrypting with --secret-file' do
           before do
             @knife.name_args            << 'bar'
-            @secret_path                = '/var/chef/secret.txt'
-            @knife.config[:secret_file] = @secret_path
-            Chef::EncryptedDataBagItem.should_receive(:load_secret).
-                                       with(@secret_path).
-                                       and_return('psst')
+            @knife.config[:secret_file] = secret_path
           end
 
           it 'should create the encrypted data bag item' do
             @knife.run
             content = JSON.parse(File.read(@item_path))
             @input_data.keys.reject{|i| i == 'id'}.each do |k|
-              content.should have_key k
-              content[k].should_not == @input_data[k]
+              expect(content).to have_key(k)
+              expect(content[k]).to_not eq(@input_data[k])
             end
           end
         end
 
         context 'when encrypting with secret set in knife config' do
           before do
-            @secret_path                             = '/var/chef/secret.txt'
-            Chef::Config[:encrypted_data_bag_secret] = @secret_path
-            Chef::EncryptedDataBagItem.should_receive(:load_secret).
-                                       with(@secret_path).
-                                       and_return('psst')
+            Chef::Config[:encrypted_data_bag_secret] = secret_path
           end
 
           after { Chef::Config[:encrypted_data_bag_secret] = nil }
@@ -192,8 +184,8 @@ describe Chef::Knife::SoloDataBagCreate do
             @knife.run
             content = JSON.parse(File.read(@item_path))
             @input_data.keys.reject{|i| i == 'id'}.each do |k|
-              content.should have_key k
-              content[k].should_not == @input_data[k]
+              expect(content).to have_key(k)
+              expect(content[k]).to_not eq(@input_data[k])
             end
           end
 
@@ -212,7 +204,7 @@ describe Chef::Knife::SoloDataBagCreate do
 
         it 'creates the data bag item' do
           @knife.run
-          JSON.parse(File.read(@item_path)).should == @input_data
+          expect(JSON.parse(File.read(@item_path))).to eq(@input_data)
         end
       end
 

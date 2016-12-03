@@ -5,4 +5,3 @@ gemspec
 
 gem 'test-kitchen', '~> 1.2'
 gem 'kitchen-vagrant'
-gem 'chef'
