@@ -4,8 +4,12 @@ A knife plugin to make working with data bags easier in a chef solo environment.
 If you are looking for a full featured chef solo management solution, you may
 want to check out [knife solo](https://github.com/matschaffer/knife-solo).
 
-*NOTE: Starting with 1.0.0, knife solo data bag only supports Chef versions >= 11.4.0.
-If you need support for an earlier version of chef, use a knife solo data bag version < 1.0.0.*
+## Deprecation Notices
+
+* Versions >= 2 only support Ruby versions 2.2 and above.
+  If you need o use an earlier Ruby version, use `knife-solo_data_bag` < 2.0.0.
+* Starting with 1.0.0, knife solo data bag only supports Chef versions >= 11.4.0.
+  If you need support for an earlier version of chef, use a knife solo data bag version < 1.0.0.
 
 ## Build Status
 ![Build Status](https://secure.travis-ci.org/thbishop/knife-solo_data_bag.png)
@@ -88,11 +92,13 @@ setting in knife.rb.
 This plugin has been tested on the following:
 
 Chef:
-* > 11.4.0
+* ~> 11.8
+* ~> 12.16
 
 Ruby:
-* 1.9.2
-* 1.9.3
+* 2.1.8
+* 2.2.2
+* 2.3.0
 
 OS:
 * OSX

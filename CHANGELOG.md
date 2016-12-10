@@ -1,5 +1,12 @@
 ## head
 
+# 2.0.0 (10/12/2016)
+
+* Deprecate unsupported Ruby versions,
+* Support supported Ruby versions (2.2 and 2.3),
+* Update RSpec to 3.x,
+* Update other gems.
+
 # 1.1.0 (04/10/2014)
 
 * add ability to correct incorrect text when editing a data bag
