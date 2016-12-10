@@ -76,6 +76,14 @@ You can also display any of the above variations in JSON format with `-F json`
 
     $ knife solo data bag show apps app_1 -s secret_key -F json
 
+### Using Data Bags in Recipes
+
+You can load your data bags inside you recipes as follows:
+
+```ruby
+app_1 = Chef::EncryptedDataBagItem.load("apps", "app_1").to_hash
+```
+
 ## Notes
 ### Data Bag Path
 By default, this plugin will use the configured data_bag_path. This is
