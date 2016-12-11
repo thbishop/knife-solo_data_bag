@@ -1,4 +1,5 @@
 # Knife Solo Data Bag
+
 A knife plugin to make working with data bags easier in a chef solo environment.
 
 If you are looking for a full featured chef solo management solution, you may
@@ -27,6 +28,7 @@ command:
   If you need support for an earlier version of chef, use a knife solo data bag version < 1.0.0.
 
 ## Build Status
+
 ![Build Status](https://secure.travis-ci.org/thbishop/knife-solo_data_bag.png)
 
 ## Installation
@@ -36,6 +38,7 @@ command:
 ## Usage
 
 ### Create
+
 Create a plain text data bag
 
     $ knife solo data bag create apps app_1
@@ -57,6 +60,7 @@ Create a data bag item from a json file
     $ knife solo data bag create apps app_1 --json-file foo.json
 
 ### Edit
+
 Edit a plain text data bag
 
     $ knife solo data bag edit apps app_1
@@ -70,11 +74,13 @@ Edit an encrypted data bag with the provided file content as the secret
     $ knife solo data bag edit apps app_1 --secret-file 'SECRET_FILE'
 
 ### List
-List all of the data bag
+
+List data bags
 
     $ knife solo data bag list
 
 ### Show
+
 Show the plain text content of a data bag (if this is an encrypted data bag, it will return the encrypted data)
 
     $ knife solo data bag show apps app_1
@@ -100,18 +106,22 @@ app_1 = Chef::EncryptedDataBagItem.load("apps", "app_1").to_hash
 ```
 
 ## Notes
+
 ### Data Bag Path
+
 By default, this plugin will use the configured data_bag_path. This is
 defaulted to `/var/chef/data_bags` by Chef. It is possible to override this
 path in your Chef client config if desired. When using this plugin, it is also
 possible to override the path using the `--data-bag-path` argument.
 
 ### Encrypted Data Bag Secret
+
 This plugin respects the "encrypted_data_bag_secret" configuration option in
 knife.rb. Command line secret arguments (-s or --secret-file) will override the
 setting in knife.rb.
 
 ## Version Support
+
 This plugin has been tested on the following:
 
 Chef:
@@ -128,10 +138,12 @@ OS:
 * Linux
 
 ## Contribute
+
 * Fork the project
 * Make your feature addition or bug fix (with tests and docs) in a topic branch
 * Bonus points for not mucking with the gemspec or version
 * Send a pull request
 
 ## License
+
 See LICENSE for details
