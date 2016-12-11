@@ -4,6 +4,21 @@ A knife plugin to make working with data bags easier in a chef solo environment.
 If you are looking for a full featured chef solo management solution, you may
 want to check out [knife solo](https://github.com/matschaffer/knife-solo).
 
+## Alternatives
+
+### `knife data bag`
+
+The standard `chef` gem includes the knife command and
+[commands to manipulate data bags][knife-data-bag-docs].
+
+`knife-solo_data_bag` has the following advantages over the `knife data bag`
+command:
+
+* allows recovery from errors when creating/editing JSON files,
+* allows import and export of the the contents in JSON format.
+
+[knife-data-bag-docs]: https://docs.chef.io/knife_data_bag.html "Knife data bag docs"
+
 ## Deprecation Notices
 
 * Versions >= 2 only support Ruby versions 2.2 and above.
