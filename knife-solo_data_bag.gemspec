@@ -14,7 +14,11 @@ Gem::Specification.new do |gem|
   gem.name          = "knife-solo_data_bag"
   gem.require_paths = ["lib"]
   gem.version       = Knife::SoloDataBag::VERSION
+
+  gem.add_development_dependency 'aruba'
+  gem.add_development_dependency 'aruba-turnip', '>= 0.1.1'
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'rspec', '>= 3.0'
   gem.add_development_dependency 'fakefs'
+  gem.add_development_dependency 'turnip'
 end

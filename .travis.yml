@@ -3,6 +3,11 @@ rvm:
   - 2.2.2
   - 2.3.0
 
+addons:
+  apt:
+    packages:
+      vim-nox
+
 before_install:
   - gem install bundler
 
