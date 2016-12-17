@@ -14,8 +14,7 @@ Feature: Editing data bags
     """
     , "hello": "world"
     """
-    And I wait
-    And I wait
+    And I wait for 4 seconds
     Then the data bag should contain:
     """
     {"id": "foo", "bar": "baz", "hello": "world"}

@@ -86,8 +86,8 @@ step "I save" do
   step "I type ':wq\\n'"
 end
 
-step "I wait" do
-  sleep 2
+step "I wait for :time seconds" do |time|
+  sleep time.to_f
 end
 
 step "I dump output" do
