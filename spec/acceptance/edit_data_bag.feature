@@ -3,7 +3,8 @@ Feature: Editing data bags
 
   Scenario: An encrypted data bag
     Given a kitchen with secret key "secret"
-    And I set the environment variable "HOME" to "."
+    #  ERROR: ArgumentError: non-absolute home
+    And I set the environment variable "HOME" to "/aruba"
     And I set the environment variable "EDITOR" to "vim-nox"
     And an encrypted data bag "foo" with item "bar" containing:
     """
@@ -15,6 +16,7 @@ Feature: Editing data bags
     , "hello": "world"
     """
     And I wait for 4 seconds
+    Then I dump output
     Then the data bag should contain:
     """
     {"id": "foo", "bar": "baz", "hello": "world"}

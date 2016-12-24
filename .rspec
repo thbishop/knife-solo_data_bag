@@ -1,3 +1,4 @@
 --color
 --format progress
---require turnip/rspec
+--require spec_helper
+--require aruba/turnip
