@@ -40,6 +40,17 @@ chef gem install knife-solo_data_bag
 ```
 ## Usage
 
+### Setup
+
+With Chef >= 12.x, you need to indicate that you're running in local mode,
+otherwise Chef will try to connect to a server.
+
+In `.chef/knife.rb`, add:
+
+```ruby
+local_mode       true
+```
+
 ### Create
 
 Create a plain text data bag
