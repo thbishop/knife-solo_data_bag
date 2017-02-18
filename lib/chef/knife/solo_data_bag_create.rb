@@ -68,8 +68,16 @@ class Chef
           json_string = JSON.parse(File.read(config[:json_file]))
           item = Chef::DataBagItem.from_hash bag_item_content(json_string)
         else
-          create_object({'id' => item_name}, "data_bag_item[#{item_name}]") do |output|
-            item = Chef::DataBagItem.from_hash bag_item_content(output)
+          data = {'id' => item_name}
+          pretty_name = "data_bag_item[#{item_name}]"
+          if Gem::Version.new(Chef::VERSION) >= Gem::Version.new("12.8.1")
+            create_object(data, pretty_name, object_class: Chef::DataBagItem) do |output|
+              item = Chef::DataBagItem.from_hash bag_item_content(output)
+            end
+          else
+            create_object(data, pretty_name) do |output|
+              item = Chef::DataBagItem.from_hash bag_item_content(output)
+            end
           end
         end
         item
