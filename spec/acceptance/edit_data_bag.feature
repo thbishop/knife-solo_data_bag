@@ -3,20 +3,19 @@ Feature: Editing data bags
 
   Scenario: An encrypted data bag
     Given a kitchen with secret key "secret"
-    #  ERROR: ArgumentError: non-absolute home
     And I set the environment variable "HOME" to "/aruba"
     And I set the environment variable "EDITOR" to "vim-nox"
-    And an encrypted data bag "foo" with item "bar" containing:
+    And an encrypted data bag "ciao" with item "foo" containing:
     """
     {"id": "foo", "bar": "baz"}
     """
 
-    When I edit the data bag, after "baz", adding:
+    When I edit the data bag, before '"id"', adding:
     """
-    , "hello": "world"
+    "hello": "world",
     """
+    And I save and exit vim
     And I wait for 4 seconds
-    Then I dump output
     Then the data bag should contain:
     """
     {"id": "foo", "bar": "baz", "hello": "world"}

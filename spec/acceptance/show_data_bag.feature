@@ -3,11 +3,11 @@ Feature: Showing data bags
 
   Scenario: An encrypted data bag dumped as plain text
     Given a kitchen with secret key "secret"
-    Given an encrypted data bag "foo" with item "bar" containing:
+    Given an encrypted data bag "ciao" with item "foo" containing:
     """
     {"id": "foo", "bar": "baz"}
     """
-    When I run `bundle exec knife solo data bag show foo bar --secret=secret`
+    When I run `bundle exec knife solo data bag show ciao foo --secret secret`
     Then the output should equal the YAML:
     """
     id: foo
@@ -16,11 +16,12 @@ Feature: Showing data bags
 
   Scenario: An encrypted data bag dumped as JSON
     Given a kitchen with secret key "secret"
-    Given an encrypted data bag "foo" with item "bar" containing:
+    And I set the environment variable "HOME" to "/aruba"
+    And an encrypted data bag "ciao" with item "foo" containing:
     """
     {"id": "foo", "bar": "baz"}
     """
-    When I run `knife solo data bag show foo bar -F json --secret=secret`
+    When I run `bundle exec knife solo data bag show ciao foo -F json --secret secret`
     Then the output should equal the JSON:
     """
     {"id": "foo", "bar": "baz"}

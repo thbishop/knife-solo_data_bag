@@ -18,12 +18,9 @@ step "a kitchen with secret key \":secret\"" do |secret|
     data_bag_path    \"#{@data_bags_directory}\"
     encrypted_data_bag_secret \"#{@secret_key_file}\"
     local_mode       true
-
-    Chef::Config[:ssl_verify_mode] = :verify_peer if defined? ::Chef
-    knife[:secret_file] = \"#{@secret_key_file}\"
     """
   secret_key_path = File.join(@secret_key_file)
-  step "a file named \"#{secret_key_path}\" with \"#{@secret}\""
+  step "a file named \"#{secret_key_path}\" with \"#{@secret}\n\""
 end
 
 step "an encrypted data bag \":bag\" with item \":item\" containing:" do |bag, item, content|
@@ -39,14 +36,14 @@ end
 
 step 'the output should equal the YAML:' do |data|
   expected = YAML.load(data)
-  output = all_commands[-1].output
+  output = all_commands[-1].stdout
   loaded = YAML.load(output)
   expect(loaded).to eq(expected)
 end
 
 step 'the output should equal the JSON:' do |data|
   expected = JSON.load(data)
-  output = all_commands[-1].output
+  output = all_commands[-1].stdout
   loaded = JSON.load(output)
   expect(loaded).to eq(expected)
 end
@@ -54,11 +51,11 @@ end
 # data bag steps
 
 step "I edit the data bag" do
-  step "I run `bundle exec knife solo data bag edit #{@bag} #{@item} --secret=#{@secret}` interactively"
+  step "I run `bundle exec knife solo data bag edit #{@bag} #{@item} --secret-file #{@secret_key_file}` interactively"
 end
 
 step "I dump the data bag as JSON" do
-  step "I run `bundle exec knife solo data bag show #{@bag} #{@item} -F json --secret=#{@secret}`"
+  step "I run `bundle exec knife solo data bag show #{@bag} #{@item} --secret-file #{@secret_key_file} -F json`"
 end
 
 step "the data bag should contain:" do |json|
@@ -66,24 +63,23 @@ step "the data bag should contain:" do |json|
   step "the output should equal the JSON:", json
 end
 
-step "I edit the data bag, after :text, adding:" do |text, content|
+step "I edit the data bag, before :text, adding:" do |text, content|
   step "I edit the data bag"
-  step "after '#{text}', I add:", content
-  step "I save"
+  step "before '#{text}', I add:", content
 end
 
 # vim editing steps
 
-step "after :text, I add:" do |text, content|
-  movement = "#{text.length}l"
-  step "I type '/#{text}\\n#{movement}a'"
+step "before :text, I add:" do |text, content|
+  step "I type '/#{text}\\n'"
+  step "I type 'i'"
   step "I type:", content
   step "I type '\\e'"
 end
 
-step "I save" do
+step "I save and exit vim" do
   step "I type '\\e'"
-  step "I type ':wq\\n'"
+  step "I type ':wqa\\n'"
 end
 
 step "I wait for :time seconds" do |time|
