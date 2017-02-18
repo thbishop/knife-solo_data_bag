@@ -28,6 +28,7 @@ class Chef
 
       def run
         Chef::Config[:solo]   = true
+        Chef::Config[:solo_legacy_mode] = true if Gem.loaded_specs['chef'].version > Gem::Version.new('12.11.0')
         @bag_name, @item_name = @name_args
         ensure_valid_arguments
         display_content
