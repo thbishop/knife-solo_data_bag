@@ -2,8 +2,8 @@
 require File.expand_path('../lib/knife-solo_data_bag/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.authors       = ["Tommy Bishop"]
-  gem.email         = ["bishop.thomas@gmail.com"]
+  gem.authors       = ["Tommy Bishop", "Joe Yates"]
+  gem.email         = ["bishop.thomas@gmail.com", "joe.g.yates@gmail.com"]
   gem.description   = %q{A knife plugin for working with data bags and chef solo}
   gem.summary       = %q{A knife plugin for working with data bags and chef solo}
   gem.homepage      = 'https://github.com/thbishop/knife-solo_data_bag'
