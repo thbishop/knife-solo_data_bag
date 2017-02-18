@@ -151,6 +151,16 @@ OS:
 * OSX
 * Linux
 
+# Development
+
+Running tests requires an indication of the Gemfile to use:
+
+```shell
+export BUNDLE_GEMFILE=$PWD/gemfiles/Gemfile.chef.11.18.12
+bundle
+bundle exec rspec
+```
+
 ## Contribute
 
 * Fork the project
