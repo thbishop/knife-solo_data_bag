@@ -1,5 +1,6 @@
 require 'tempfile'
 require 'chef/knife'
+require 'yajl'
 
 class Chef
   class Knife
