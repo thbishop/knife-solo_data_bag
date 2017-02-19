@@ -6,6 +6,10 @@ class Chef
 
     class SoloDataBagEdit < Knife
 
+      deps do
+        require 'yajl'
+      end
+
       require 'chef/knife/solo_data_bag_helpers'
       include Chef::Knife::SoloDataBagHelpers
 
